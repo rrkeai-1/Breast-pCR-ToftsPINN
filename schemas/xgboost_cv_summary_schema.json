@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "xgboost_cv_summary.json",
+  "description": "Schema template for the CV summary written by scripts/03_train_xgboost.py.",
+  "type": "object",
+  "required": [
+    "n_splits",
+    "random_state",
+    "feature_columns",
+    "fold_metrics",
+    "oof_metrics",
+    "decision_threshold_from_oof",
+    "threshold_metric",
+    "final_n_estimators_from_cv"
+  ],
+  "properties": {
+    "n_splits": {"type": "integer", "minimum": 2, "description": "Number of stratified CV folds. Default: 5."},
+    "random_state": {"type": "integer", "description": "Seed used for fold assignment and PINN initialisation."},
+    "feature_columns": {"type": "array", "items": {"type": "string"}, "description": "Feature columns fed to XGBoost in this run."},
+    "fold_metrics": {
+      "type": "array",
+      "description": "Per-fold metric panel at the fold's locally-selected decision threshold.",
+      "items": {
+        "type": "object",
+        "required": ["fold_index", "best_n_estimators", "n_samples", "roc_auc", "average_precision", "f1"],
+        "properties": {
+          "fold_index": {"type": "integer", "minimum": 1},
+          "best_n_estimators": {"type": "integer", "minimum": 0},
+          "decision_threshold": {"type": "number"},
+          "n_samples": {"type": "integer"},
+          "n_positive": {"type": "integer"},
+          "n_negative": {"type": "integer"},
+          "roc_auc": {"type": ["number", "null"]},
+          "average_precision": {"type": ["number", "null"]},
+          "accuracy": {"type": ["number", "null"]},
+          "balanced_accuracy": {"type": ["number", "null"]},
+          "precision": {"type": ["number", "null"]},
+          "recall": {"type": ["number", "null"]},
+          "specificity": {"type": ["number", "null"]},
+          "f1": {"type": ["number", "null"]},
+          "log_loss": {"type": ["number", "null"]}
+        }
+      }
+    },
+    "oof_metrics": {
+      "type": "object",
+      "description": "Metric panel on the pooled OOF predictions at the OOF-selected threshold."
+    },
+    "decision_threshold_from_oof": {"type": "number", "description": "Threshold selected on pooled OOF predictions."},
+    "threshold_metric": {"type": "string", "enum": ["f1", "balanced_accuracy"]},
+    "final_n_estimators_from_cv": {"type": "integer", "minimum": 0, "description": "Mean (rounded) of the per-fold best n_estimators."},
+    "fold_best_n_estimators": {"type": "array", "items": {"type": "integer"}},
+    "pinn_fold_summaries": {
+      "type": ["array", "null"],
+      "description": "Per-fold PINN fit summaries when the feature preset uses PINN; null otherwise."
+    }
+  }
+}

@@ -1,0 +1,17 @@
+column_name,required,description,example
+pid,yes,Case identifier,case_001
+status,yes,Per-case processing status (ok / warning / failed),ok
+error_message,recommended,Empty when status=ok; populated otherwise,
+tumor_voxel_count,yes,Number of voxels in the cleaned tumour mask,9543
+tumor_volume_mm3,yes,Cleaned tumour volume in mm^3,7831.5
+core15_voxel_count,yes,Number of voxels in the core15 ROI,1432
+core15_volume_mm3,yes,core15 volume in mm^3,1174.7
+safe_rim_voxel_count,yes,Number of voxels in the safe-rim ROI,1721
+safe_rim_volume_mm3,yes,safe-rim volume in mm^3,1411.2
+safe_rim_to_core15_volume_ratio,yes,Ratio safe_rim_volume_mm3 / core15_volume_mm3 (safe divide),1.201
+spacing_mm_x,recommended,Voxel spacing in mm along x,0.78
+spacing_mm_y,recommended,Voxel spacing in mm along y,0.78
+spacing_mm_z,recommended,Voxel spacing in mm along z,1.50
+geometry_status,recommended,Geometry-check status: ok / warning / error,ok
+n_dce_timepoints,recommended,Number of discovered DCE timepoints,7
+reference_timepoint_idx,recommended,Timepoint used as the reference for geometry,2

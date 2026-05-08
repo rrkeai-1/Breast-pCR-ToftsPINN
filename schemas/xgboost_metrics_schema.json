@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "xgboost_metrics.json",
+  "description": "Schema template for the combined metrics file written by scripts/03_train_xgboost.py.",
+  "type": "object",
+  "required": [
+    "feature_mode",
+    "feature_columns",
+    "n_splits",
+    "random_state",
+    "decision_threshold_metric",
+    "decision_threshold_used",
+    "development_n",
+    "heldout_test_n",
+    "cv_oof_metrics",
+    "cv_fold_metrics",
+    "final_n_estimators_from_cv",
+    "pinn_used"
+  ],
+  "properties": {
+    "feature_mode": {"type": "string", "description": "Selected feature preset (e.g. 'main')."},
+    "feature_columns": {"type": "array", "items": {"type": "string"}},
+    "n_splits": {"type": "integer", "minimum": 2},
+    "random_state": {"type": "integer"},
+    "decision_threshold_metric": {"type": "string", "enum": ["f1", "balanced_accuracy"]},
+    "decision_threshold_used": {"type": "number"},
+    "development_n": {"type": "integer", "minimum": 0},
+    "heldout_test_n": {"type": "integer", "minimum": 0},
+    "cv_oof_metrics": {"$ref": "#/$defs/metric_panel"},
+    "cv_fold_metrics": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/metric_panel_with_fold"}
+    },
+    "final_n_estimators_from_cv": {"type": "integer", "minimum": 0},
+    "heldout_test_metrics": {"oneOf": [{"$ref": "#/$defs/metric_panel"}, {"type": "null"}]},
+    "pinn_used": {"type": "boolean"}
+  },
+  "$defs": {
+    "metric_panel": {
+      "type": "object",
+      "properties": {
+        "n_samples": {"type": "integer"},
+        "n_positive": {"type": "integer"},
+        "n_negative": {"type": "integer"},
+        "decision_threshold": {"type": "number"},
+        "roc_auc": {"type": ["number", "null"]},
+        "average_precision": {"type": ["number", "null"]},
+        "accuracy": {"type": ["number", "null"]},
+        "balanced_accuracy": {"type": ["number", "null"]},
+        "precision": {"type": ["number", "null"]},
+        "recall": {"type": ["number", "null"]},
+        "specificity": {"type": ["number", "null"]},
+        "f1": {"type": ["number", "null"]},
+        "log_loss": {"type": ["number", "null"]},
+        "true_negative": {"type": "integer"},
+        "false_positive": {"type": "integer"},
+        "false_negative": {"type": "integer"},
+        "true_positive": {"type": "integer"}
+      }
+    },
+    "metric_panel_with_fold": {
+      "allOf": [
+        {"$ref": "#/$defs/metric_panel"},
+        {
+          "type": "object",
+          "properties": {
+            "fold_index": {"type": "integer", "minimum": 1},
+            "best_n_estimators": {"type": "integer", "minimum": 0}
+          }
+        }
+      ]
+    }
+  }
+}

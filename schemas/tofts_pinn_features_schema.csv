@@ -1,0 +1,18 @@
+column_name,required,description,example
+pid,yes,Case identifier,case_001
+core15_Ktrans,yes,Tofts K_trans for the core15 ROI (min^-1),0.215
+core15_kep,yes,Tofts k_ep for the core15 ROI (min^-1),0.612
+safe_rim_Ktrans,yes,Tofts K_trans for the safe-rim ROI (min^-1),0.305
+safe_rim_kep,yes,Tofts k_ep for the safe-rim ROI (min^-1),0.541
+core15_recon_mse,recommended,Masked-reconstruction MSE on the core15 ROI,0.00184
+safe_rim_recon_mse,recommended,Masked-reconstruction MSE on the safe-rim ROI,0.00231
+core15_ve,recommended,Derived: core15_Ktrans / core15_kep,0.351
+safe_rim_ve,recommended,Derived: safe_rim_Ktrans / safe_rim_kep,0.564
+safe_rim_minus_core15_Ktrans,recommended,Derived contrast,0.090
+safe_rim_minus_core15_kep,recommended,Derived contrast,-0.071
+log_safe_rim_to_core15_Ktrans_ratio,recommended,Derived: log(safe_rim_Ktrans / core15_Ktrans),0.348
+log_safe_rim_to_core15_kep_ratio,recommended,Derived: log(safe_rim_kep / core15_kep),-0.123
+core15_pinn_feature_valid,recommended,1 if core15 PINN features are valid for this case,1
+safe_rim_pinn_feature_valid,recommended,1 if safe-rim PINN features are valid for this case,1
+pinn_feature_valid,recommended,1 if both ROIs are valid,1
+split_group,recommended,One of: development / heldout_test,development

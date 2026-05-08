@@ -1,0 +1,11 @@
+column_name,required,description,example
+pid,yes,Case identifier,case_001
+roi_type,yes,One of: full_tumor / core15 / safe_rim,core15
+timepoint_idx,yes,Integer DCE timepoint index,2
+n_voxels,yes,Number of voxels in the ROI for this case,1432
+mean_signal,yes,Mean raw signal across ROI voxels at this timepoint,1234.5
+std_signal,recommended,Standard deviation of signal across ROI voxels,210.7
+baseline_index,recommended,Index used as the baseline (S0) timepoint for normalisation,0
+baseline_mean_signal,recommended,Mean signal at the baseline timepoint,820.1
+normalized_s_over_s0,recommended,mean_signal / baseline_mean_signal,1.504
+status,recommended,One of: ok / warning / failed,ok

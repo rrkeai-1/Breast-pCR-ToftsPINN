@@ -1,0 +1,14 @@
+column_name,required,description,example
+pid,yes,Case identifier; must match mask filename or be mappable via case_map_csv,case_001
+pCR,yes,Binary pathological complete response label (0 or 1),1
+test,recommended,Held-out test indicator (0 = development; 1 or 2 = held out),0
+clinical_age,recommended,Baseline age in years,48
+clinical_hr,recommended,Hormone receptor status (1 = positive),1
+clinical_her2,recommended,HER2 status (1 = positive),0
+clinical_triple_neg,recommended,Triple-negative indicator (1 = TNBC),0
+pre,optional,Pre-contrast DCE timepoint index,0
+post_early,optional,Early post-contrast DCE timepoint index,2
+post_late,optional,Late post-contrast DCE timepoint index,5
+n_times,optional,Total number of DCE timepoints,7
+dataset,optional,Free-form subset / dataset label,BreastDCEDL_ISPY2
+split,optional,Free-form split label (train / val / test) used with --subset_name,train
